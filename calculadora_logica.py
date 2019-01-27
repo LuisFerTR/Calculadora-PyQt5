@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+# Archivo principal del proyecto.
 # Falta agregar fracciones.
 import sys
 from PyQt5.QtWidgets import QDialog, QApplication
