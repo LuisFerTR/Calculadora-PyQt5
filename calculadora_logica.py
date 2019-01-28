@@ -339,6 +339,9 @@ class MiForma(QDialog):
                     if (isinstance(div, float) and
                             str(div)[-2] == '.' and str(div)[-1] == '0'):
                         self.ui.linea_result.setText(str(div)[:-2])
+                        
+                    else:
+                        self.ui.linea_result.setText(str(div))
 
                 except ZeroDivisionError:
                     self.ui.linea_result.setText('ERROR')
