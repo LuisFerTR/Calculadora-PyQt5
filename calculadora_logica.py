@@ -1,5 +1,4 @@
 # -*- coding: utf8 -*-
-# Archivo principal del proyecto.
 # Falta agregar fracciones.
 import sys
 from PyQt5.QtWidgets import QDialog, QApplication
@@ -308,7 +307,8 @@ class MiForma(QDialog):
             if simbolo == 1:
                 suma = num1 + num2
 
-                if (str(suma)[-2] == '.' and str(suma)[-1] == '0'):
+                if (len(str(suma)) >= 3 and str(suma)[-2] == '.'
+                        and str(suma)[-1] == '0'):
                     self.ui.linea_result.setText(str(suma)[:-2])
 
                 else:
@@ -317,7 +317,8 @@ class MiForma(QDialog):
             elif simbolo == 2:
                 resta = num1 - num2
 
-                if (str(resta)[-2] == '.' and str(resta)[-1] == '0'):
+                if (len(str(resta)) >= 3 and str(resta)[-2] == '.'
+                        and str(resta)[-1] == '0'):
                     self.ui.linea_result.setText(str(resta)[:-2])
 
                 else:
@@ -326,7 +327,8 @@ class MiForma(QDialog):
             elif simbolo == 3:
                 mult = num1 * num2
 
-                if (str(mult)[-2] == '.' and str(mult)[-1] == '0'):
+                if (len(str(mult)) >= 3 and str(mult)[-2] == '.'
+                        and str(mult)[-1] == '0'):
                     self.ui.linea_result.setText(str(mult)[:-2])
 
                 else:
@@ -336,10 +338,10 @@ class MiForma(QDialog):
                 try:
                     div = num1 / num2
 
-                    if (isinstance(div, float) and
-                            str(div)[-2] == '.' and str(div)[-1] == '0'):
+                    if (len(str(div)) >= 3 and str(div)[-2] == '.'
+                            and str(div)[-1] == '0'):
                         self.ui.linea_result.setText(str(div)[:-2])
-                        
+
                     else:
                         self.ui.linea_result.setText(str(div))
 
@@ -349,14 +351,16 @@ class MiForma(QDialog):
             elif simbolo == 5:
                 potencia = pow(num1, num2)
 
-                if (str(potencia)[-2] == '.' and str(potencia)[-1] == '0'):
+                if (len(str(potencia)) >= 3 and str(potencia)[-2] == '.'
+                        and str(potencia)[-1] == '0'):
                         self.ui.linea_result.setText(str(potencia)[:-2])
 
                 else:
                     self.ui.linea_result.setText(str(potencia))
 
             elif simbolo == 6:
-                if (str(raiz_cuad_simplificada)[-2] == '.'
+                if (len(str(raiz_cuad_simplificada)) >= 3
+                        and str(raiz_cuad_simplificada)[-2] == '.'
                         and str(raiz_cuad_simplificada)[-1] == '0'):
                     self.ui.linea_result.setText(
                         str(raiz_cuad_simplificada)[:-2])
