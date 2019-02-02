@@ -23,5 +23,5 @@ la fracción convertida a decimal.
 # Qué aprendí
 * Manejar el sistema de ranuras y señales (signals & slots) de Qt.
 * Uso y función de los atributos de los componentes QLineEdit y QPushButton.
-* Abstraer con más facilidad procedimientos aritméticos y algebraicos para 
+* Abstraer con mayor facilidad procedimientos aritméticos y algebraicos para 
 ser capaz de implmentarlos en código.
