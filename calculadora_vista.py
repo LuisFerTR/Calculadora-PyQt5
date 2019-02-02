@@ -12,6 +12,8 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(294, 320)
+        Dialog.setMinimumSize(QtCore.QSize(294, 320))
+        Dialog.setMaximumSize(QtCore.QSize(294, 320))
         Dialog.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../../Python Codes/calc.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QDialog, QApplication
 from calculadora_vista import *
 from math import sqrt, pow
 from Simplificar_raiz import factores_raiz
+from Clase_Fraccion import Fraccion
 
 
 class MiForma(QDialog):
@@ -126,7 +127,7 @@ class MiForma(QDialog):
         if numeros == '' or numeros == '0':
             self.ui.linea_result.setText('0.')
 
-        elif punto >= 1:
+        elif punto != 0 or numeros == 'ERROR':
             self.ui.linea_result.setText(self.ui.linea_result.text() + '')
 
         else:
@@ -140,7 +141,7 @@ class MiForma(QDialog):
             if i == '-':
                 negativo = 1
 
-        if negativo >= 1:
+        if negativo != 0 or numeros == 'ERROR':
             self.ui.linea_result.setText(self.ui.linea_result.text() + '')
 
         else:
@@ -149,15 +150,20 @@ class MiForma(QDialog):
     def mostrar_suma(self):
         global num1
         global raiz_cuad
+        global div
         global simbolo
 
         numeros = self.ui.linea_result.text()
 
         if numeros == 'ERROR':
+            num1 = 0
             self.ui.linea_result.setText('0')
 
         elif '√' in numeros:
             num1 = raiz_cuad
+
+        elif '/' in numeros:
+            num1 = div
 
         else:
             num1 = float(self.ui.linea_result.text())
@@ -173,10 +179,14 @@ class MiForma(QDialog):
         numeros = self.ui.linea_result.text()
 
         if numeros == 'ERROR':
+            num1 = 0
             self.ui.linea_result.setText('0')
 
         elif '√' in numeros:
             num1 = raiz_cuad
+
+        elif '/' in numeros:
+            num1 = div
 
         else:
             num1 = float(self.ui.linea_result.text())
@@ -191,10 +201,14 @@ class MiForma(QDialog):
         numeros = self.ui.linea_result.text()
 
         if numeros == 'ERROR':
+            num1 = 0
             self.ui.linea_result.setText('0')
 
         elif '√' in numeros:
             num1 = raiz_cuad
+
+        elif '/' in numeros:
+            num1 = div
 
         else:
             num1 = float(self.ui.linea_result.text())
@@ -210,10 +224,14 @@ class MiForma(QDialog):
         numeros = self.ui.linea_result.text()
 
         if numeros == 'ERROR':
+            num1 = 0
             self.ui.linea_result.setText('0')
 
         elif '√' in numeros:
             num1 = raiz_cuad
+
+        elif '/' in numeros:
+            num1 = div
 
         else:
             num1 = float(self.ui.linea_result.text())
@@ -229,10 +247,14 @@ class MiForma(QDialog):
         numeros = self.ui.linea_result.text()
 
         if numeros == 'ERROR':
+            num1 = 0
             self.ui.linea_result.setText('0')
 
         elif '√' in numeros:
             num1 = raiz_cuad
+
+        elif '/' in numeros:
+            num1 = div
 
         else:
             num1 = float(self.ui.linea_result.text())
@@ -243,22 +265,30 @@ class MiForma(QDialog):
     def mostrar_raiz_cuad(self):
         global num1
         global simbolo
+        global div
         global raiz_cuad
         global raiz_cuad_simplificada
 
         numeros = self.ui.linea_result.text()
 
         if numeros == 'ERROR':
+            num1 = 0
             self.ui.linea_result.setText('0')
 
-        num1 = float(self.ui.linea_result.text())
+        elif '√' in numeros:
+            num1 = raiz_cuad
 
-        raiz_cuad_simplificada = factores_raiz(num1)
+        elif '/' in numeros:
+            num1 = div
+
+        else:
+            num1 = float(self.ui.linea_result.text())
+            raiz_cuad_simplificada = factores_raiz(num1)
 
         try:
             raiz_cuad = sqrt(num1)
 
-            if (str(raiz_cuad)[-2] == '.' and str(raiz_cuad)[-1] == '0'):
+            if str(raiz_cuad)[-2] == '.' and str(raiz_cuad)[-1] == '0':
                     self.ui.linea_result.setText(str(raiz_cuad)[:-2])
 
             else:
@@ -267,11 +297,17 @@ class MiForma(QDialog):
             simbolo = 6
 
         except ValueError:
+            num1 = 0
             self.ui.linea_result.setText('ERROR')
 
     def borrar(self):
         numeros = self.ui.linea_result.text()
-        self.ui.linea_result.setText(numeros[:-1])
+
+        if len(numeros) > 1:
+            self.ui.linea_result.setText(numeros[:-1])
+
+        else:
+            self.ui.linea_result.setText('0')
 
     def reiniciar(self):
         global num1
@@ -288,16 +324,22 @@ class MiForma(QDialog):
         global num1
         global num2
         global simbolo
+        global div
+        global div_real
         global raiz_cuad
         global raiz_cuad_simplificada
 
         numeros = self.ui.linea_result.text()
 
         if numeros == 'ERROR':
+            num1 = 0
             self.ui.linea_result.setText('0')
 
         elif '√' in numeros:
             num2 = raiz_cuad
+
+        elif '/' in numeros:
+            num2 = div
 
         else:
             num2 = float(self.ui.linea_result.text())
@@ -335,18 +377,12 @@ class MiForma(QDialog):
                     self.ui.linea_result.setText(str(mult))
 
             elif simbolo == 4:
-                try:
-                    div = num1 / num2
+                div = Fraccion(num1, num2)
+                div_real = num1 / num2
 
-                    if (len(str(div)) >= 3 and str(div)[-2] == '.'
-                            and str(div)[-1] == '0'):
-                        self.ui.linea_result.setText(str(div)[:-2])
-
-                    else:
-                        self.ui.linea_result.setText(str(div))
-
-                except ZeroDivisionError:
-                    self.ui.linea_result.setText('ERROR')
+                mostrar_div = str(div)
+                self.ui.linea_result.setText(mostrar_div)
+                simbolo = 7
 
             elif simbolo == 5:
                 potencia = pow(num1, num2)
@@ -364,6 +400,9 @@ class MiForma(QDialog):
                         and str(raiz_cuad_simplificada)[-1] == '0'):
                     self.ui.linea_result.setText(
                         str(raiz_cuad_simplificada)[:-2])
+
+            elif simbolo == 7:
+                self.ui.linea_result.setText(str(div_real))
 
             else:
                 self.ui.linea_result.setText(self.ui.linea_result.text())
